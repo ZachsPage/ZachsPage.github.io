@@ -3,7 +3,7 @@ import Sidebar from '../components/Sidebar.astro';
 import '../styles/theme.css';
 
 interface Props {
-	title?: string;
+    title?: string;
 }
 
 const { title = 'ZachsPage' } = Astro.props;
@@ -11,67 +11,67 @@ const { title = 'ZachsPage' } = Astro.props;
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/icons/astro.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<div class="layout">
-			<Sidebar />
-			<main class="main-content">
-				<slot />
-			</main>
-		</div>
-	</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/icons/astro.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body>
+        <div class="layout">
+            <Sidebar />
+            <main class="main-content">
+                <slot />
+            </main>
+        </div>
+    </body>
 </html>
 <style>
-	:global(html) {
-		font-family: system-ui, -apple-system, sans-serif;
-		scroll-behavior: smooth;
-	}
+    :global(html) {
+        font-family: system-ui, -apple-system, sans-serif;
+        scroll-behavior: smooth;
+    }
 
-	:global(body) {
-		margin: 0;
-		padding: 0;
-		background: var(--color-bg-content);
-		color: var(--color-text-primary);
-		min-height: 100vh;
-	}
+    :global(body) {
+        margin: 0;
+        padding: 0;
+        background: var(--color-bg-content);
+        color: var(--color-text-primary);
+        min-height: 100vh;
+    }
 
-	.layout {
-		display: flex;
-		min-height: 100vh;
-	}
+    .layout {
+        display: flex;
+        min-height: 100vh;
+    }
 
-	.main-content {
-		flex: 1;
-		margin-left: 250px;
-		padding: 2rem;
-		background: var(--color-bg-content);
-		backdrop-filter: blur(10px);
-		max-width: 1200px;
-		width: 100%;
-		box-shadow: 0 0 20px var(--color-shadow);
-	}
+    .main-content {
+        flex: 1;
+        margin-left: 250px;
+        padding: 2rem;
+        background: var(--color-bg-content);
+        backdrop-filter: blur(10px);
+        max-width: 1200px;
+        width: 100%;
+        box-shadow: 0 0 20px var(--color-shadow);
+    }
 
-	@media (max-width: 768px) {
-		.main-content {
-			margin-left: 0;
-			padding: 1rem;
-		}
-		.layout {
-			flex-direction: column !important;
-		}
-	}
+    @media (max-width: 768px) {
+        .main-content {
+            margin-left: 0;
+            padding: 1rem;
+        }
+        .layout {
+            flex-direction: column !important;
+        }
+    }
     
     /* Fixed blog-post bullets being a different color*/
-	:global(.blog-post ul li),
-	:global(.blog-post ol li),
-	:global(.blog-post li) {
-		color: var(--color-text-secondary);
-	}
+    :global(.blog-post ul li),
+    :global(.blog-post ol li),
+    :global(.blog-post li) {
+        color: var(--color-text-secondary);
+    }
 </style>
 

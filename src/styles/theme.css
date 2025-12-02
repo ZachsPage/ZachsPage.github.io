@@ -1,15 +1,15 @@
 :root {
-	--color-bg-main: rgba(208, 208, 208, 1);
-	--color-bg-content: rgb(151, 151, 151);
-	--color-bg-blog-post: rgba(184, 184, 184, 0.7);
-	--color-bg-menu: rgba(45, 45, 45, 1);
-	--color-bg-menu-hover: rgba(58, 58, 58, 1);
-	--color-bg-menu-active: rgba(74, 74, 74, 1);
-	--color-text-primary: rgba(26, 26, 26, 1);
-	--color-text-secondary: rgba(58, 58, 58, 1);
-	--color-text-meta: rgba(106, 106, 106, 1);
-	--color-text-menu: rgba(245, 245, 245, 1);
-	--color-text-menu-sub: rgba(208, 208, 208, 1);
-	--color-border: rgb(58, 58, 58);
-	--color-shadow: rgba(0, 0, 0, 0.1);
+    --color-bg-main: rgba(208, 208, 208, 1);
+    --color-bg-content: rgb(151, 151, 151);
+    --color-bg-blog-post: rgba(184, 184, 184, 0.7);
+    --color-bg-menu: rgba(45, 45, 45, 1);
+    --color-bg-menu-hover: rgba(58, 58, 58, 1);
+    --color-bg-menu-active: rgba(74, 74, 74, 1);
+    --color-text-primary: rgba(26, 26, 26, 1);
+    --color-text-secondary: rgba(58, 58, 58, 1);
+    --color-text-meta: rgba(106, 106, 106, 1);
+    --color-text-menu: rgba(245, 245, 245, 1);
+    --color-text-menu-sub: rgba(208, 208, 208, 1);
+    --color-border: rgb(58, 58, 58);
+    --color-shadow: rgba(0, 0, 0, 0.1);
 }
