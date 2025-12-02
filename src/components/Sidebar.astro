@@ -19,7 +19,7 @@ const sortedPosts = blogPosts.sort((a: typeof blogPosts[number], b: typeof blogP
 				<span class="toggle-icon">+</span>
 				<span>Blog</span>
 			</button>
-			<ul class="blog-list" id="blogList" style="display: none;">
+			<ul class="blog-list" id="blogList">
 				{sortedPosts.map((post) => (
 					<li>
 						<a href={`#blog-${post.id}`} class="blog-link" data-post-id={post.id}>
@@ -42,7 +42,11 @@ const sortedPosts = blogPosts.sort((a: typeof blogPosts[number], b: typeof blogP
 		blogToggle.setAttribute('aria-expanded', String(!isExpanded));
 		
 		if (blogList) {
-			blogList.style.display = isExpanded ? 'none' : 'block';
+			if (isExpanded) {
+				blogList.classList.remove('visible');
+			} else {
+				blogList.classList.add('visible');
+			}
 		}
 		
 		if (toggleIcon) {
@@ -63,7 +67,7 @@ const sortedPosts = blogPosts.sort((a: typeof blogPosts[number], b: typeof blogP
 						const isExpanded = blogToggle.getAttribute('aria-expanded') === 'true';
 						if (!isExpanded) {
 							blogToggle.setAttribute('aria-expanded', 'true');
-							blogList.style.display = 'block';
+							blogList.classList.add('visible');
 							toggleIcon.textContent = '-';
 						}
 					}
@@ -88,7 +92,7 @@ const sortedPosts = blogPosts.sort((a: typeof blogPosts[number], b: typeof blogP
 					const isExpanded = blogToggle.getAttribute('aria-expanded') === 'true';
 					if (!isExpanded) {
 						blogToggle.setAttribute('aria-expanded', 'true');
-						blogList.style.display = 'block';
+						blogList.classList.add('visible');
 						toggleIcon.textContent = '-';
 					}
 				}
