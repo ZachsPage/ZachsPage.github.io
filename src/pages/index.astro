@@ -5,41 +5,41 @@ import '../styles/index.css';
 
 const blogPosts = await getCollection('blog');
 const sortedPosts = blogPosts.sort((a: typeof blogPosts[number], b: typeof blogPosts[number]) => 
-	b.data.pubDate.getTime() - a.data.pubDate.getTime()
+    b.data.pubDate.getTime() - a.data.pubDate.getTime()
 );
 
 const renderedPosts = await Promise.all(
-	sortedPosts.map(async (post) => {
-		const { Content } = await post.render();
-		return { ...post, Content };
-	})
+    sortedPosts.map(async (post) => {
+        const { Content } = await post.render();
+        return { ...post, Content };
+    })
 );
 
 const musicFiles = [
-	{ name: 'Techi', file: 'Techi.mp3' },
-	{ name: 'Fest', file: 'fest.mp3' },
-	{ name: 'Chill', file: 'Chill.mp3' },
-	{ name: 'Star', file: 'Star.mp3' },
-	{ name: 'Flawed', file: 'Flawedv4.mp3' },
+    { name: 'Techi', file: 'Techi.mp3' },
+    { name: 'Fest', file: 'fest.mp3' },
+    { name: 'Chill', file: 'Chill.mp3' },
+    { name: 'Star', file: 'Star.mp3' },
+    { name: 'Flawed', file: 'Flawedv4.mp3' },
 ];
 ---
 
 <BaseLayout title="ZachsPage">
-	<section id="home" class="section">
-		<h1>Welcome to ZachsPage!</h1>
-		<p>
+    <section id="home" class="section">
+        <h1>Welcome to ZachsPage!</h1>
+        <p>
             This is a website deployed / hosted using Github - with a thoughtfully selected Github username.
             <br><br>
             While an intro to myself, also houses any blog posts I may write.
         </p>
-	</section>
+    </section>
 
-	<section id="about" class="section">
-		<h1>About Me</h1>
-		<div class="about-content">
-			<img src="/images/profile.jpg" alt="Profile picture" class="profile-image" />
-			<p>
-			    In May of 2017, I graduated from Penn State Behrend with BA in Computer Engineering.<br>
+    <section id="about" class="section">
+        <h1>About Me</h1>
+        <div class="about-content">
+            <img src="/images/profile.jpg" alt="Profile picture" class="profile-image" />
+            <p>
+                In May of 2017, I graduated from Penn State Behrend with BA in Computer Engineering.<br>
                 From there, worked at GE while being enrolled in their software Edison Leadership program.<br>
                 GE Transportation was then sold and became Wabtec - where I worked for a bit, until being employed at
                 <a href="https://motional.com"><span>Motional</span></a>.
@@ -65,11 +65,11 @@ const musicFiles = [
                 </a>
             </div>
         </div>
-	</section>
+    </section>
 
-	<section id="contact" class="section">
-		<h1>Contact</h1>
-		<p>Feel free to contact me on LinkedIn</p>
+    <section id="contact" class="section">
+        <h1>Contact</h1>
+        <p>Feel free to contact me on LinkedIn</p>
         <div class="contact-links">
             <a href="https://www.linkedin.com/in/zachary-miller-05279bb0/" target="_blank" rel="noopener noreferrer" class="social-link">
                 <svg class="social-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -78,74 +78,74 @@ const musicFiles = [
                 <span>LinkedIn</span>
             </a>
         </div>
-	</section>
+    </section>
 
-	<section id="music" class="section">
-		<h1>My Instrumentals</h1>
-		<p>Here are some instrumentals from when I was more into music production - give 'em a click!</p>
-		<div class="music-player-container">
-			<ul class="music-list">
-				{musicFiles.map((track, index) => (
-					<li class="music-list-item" data-track-index={index} data-src={`/music/${track.file}`}>
-						<button class="music-track-button" type="button">
-							<span class="track-name">{track.name}</span>
-						</button>
-					</li>
-				))}
-			</ul>
-			<audio id="musicPlayer" controls>
-				<source src="" type="audio/mpeg" />
-				Your browser does not support the audio element.
-			</audio>
-		</div>
-	</section>
+    <section id="music" class="section">
+        <h1>My Instrumentals</h1>
+        <p>Here are some instrumentals from when I was more into music production - give 'em a click!</p>
+        <div class="music-player-container">
+            <ul class="music-list">
+                {musicFiles.map((track, index) => (
+                    <li class="music-list-item" data-track-index={index} data-src={`/music/${track.file}`}>
+                        <button class="music-track-button" type="button">
+                            <span class="track-name">{track.name}</span>
+                        </button>
+                    </li>
+                ))}
+            </ul>
+            <audio id="musicPlayer" controls>
+                <source src="" type="audio/mpeg" />
+                Your browser does not support the audio element.
+            </audio>
+        </div>
+    </section>
 
-	<script>
-		const musicPlayer = document.getElementById('musicPlayer') as HTMLAudioElement | null;
-		const trackButtons = document.querySelectorAll('.music-track-button');
-		const trackItems = document.querySelectorAll('.music-list-item');
+    <script>
+        const musicPlayer = document.getElementById('musicPlayer') as HTMLAudioElement | null;
+        const trackButtons = document.querySelectorAll('.music-track-button');
+        const trackItems = document.querySelectorAll('.music-list-item');
 
-		trackButtons.forEach((button) => {
-			button.addEventListener('click', () => {
-				const listItem = button.closest('.music-list-item');
-				const trackSrc = listItem?.getAttribute('data-src');
-				
-				if (trackSrc && musicPlayer) {
-					trackItems.forEach(item => item.classList.remove('active'));
-					listItem?.classList.add('active');
-					
-					musicPlayer.src = trackSrc;
-					musicPlayer.load();
-					musicPlayer.play();
-				}
-			});
-		});
+        trackButtons.forEach((button) => {
+            button.addEventListener('click', () => {
+                const listItem = button.closest('.music-list-item');
+                const trackSrc = listItem?.getAttribute('data-src');
+                
+                if (trackSrc && musicPlayer) {
+                    trackItems.forEach(item => item.classList.remove('active'));
+                    listItem?.classList.add('active');
+                    
+                    musicPlayer.src = trackSrc;
+                    musicPlayer.load();
+                    musicPlayer.play();
+                }
+            });
+        });
 
-		musicPlayer?.addEventListener('ended', () => {
-			trackItems.forEach(item => item.classList.remove('active'));
-		});
-	</script>
+        musicPlayer?.addEventListener('ended', () => {
+            trackItems.forEach(item => item.classList.remove('active'));
+        });
+    </script>
 
-	<section id="blog" class="section">
-		<h1>Blog</h1>
-		<p>This section is for my thoughts - the idea was to use Astro to support writing posts 
+    <section id="blog" class="section">
+        <h1>Blog</h1>
+        <p>This section is for my thoughts - the idea was to use Astro to support writing posts 
             in Markdown for easy publishing.</p>
-		<div class="blog-posts">
-			{renderedPosts.map((post) => (
-				<article id={`blog-${post.id}`} class="blog-post">
-					<h2>{post.data.title}</h2>
-					<p class="blog-meta">
-						Published: {post.data.pubDate.toLocaleDateString('en-US', { 
-							year: 'numeric', 
-							month: 'long', 
-							day: 'numeric' 
-						})}
-					</p>
-					<div class="blog-content">
-						<post.Content />
-					</div>
-				</article>
-			))}
-		</div>
-	</section>
+        <div class="blog-posts">
+            {renderedPosts.map((post) => (
+                <article id={`blog-${post.id}`} class="blog-post">
+                    <h2>{post.data.title}</h2>
+                    <p class="blog-meta">
+                        Published: {post.data.pubDate.toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        })}
+                    </p>
+                    <div class="blog-content">
+                        <post.Content />
+                    </div>
+                </article>
+            ))}
+        </div>
+    </section>
 </BaseLayout>

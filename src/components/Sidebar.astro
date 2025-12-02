@@ -4,114 +4,114 @@ import '../styles/sidebar.css';
 
 const blogPosts = await getCollection('blog');
 const sortedPosts = blogPosts.sort((a: typeof blogPosts[number], b: typeof blogPosts[number]) => 
-	b.data.pubDate.getTime() - a.data.pubDate.getTime()
+    b.data.pubDate.getTime() - a.data.pubDate.getTime()
 );
 ---
 
 <aside class="sidebar">
-	<nav class="nav">
-		<a href="#home" class="nav-link" data-section="home">Home</a>
-		<a href="#about" class="nav-link" data-section="about">About</a>
-		<a href="#contact" class="nav-link" data-section="contact">Contact</a>
-		<a href="#music" class="nav-link" data-section="music">Music</a>
-		<div class="blog-section">
-			<button class="blog-toggle" id="blogToggle" aria-expanded="false">
-				<span class="toggle-icon">+</span>
-				<span>Blog</span>
-			</button>
-			<ul class="blog-list" id="blogList">
-				{sortedPosts.map((post) => (
-					<li>
-						<a href={`#blog-${post.id}`} class="blog-link" data-post-id={post.id}>
-							{post.data.title}
-						</a>
-					</li>
-				))}
-			</ul>
-		</div>
-	</nav>
+    <nav class="nav">
+        <a href="#home" class="nav-link" data-section="home">Home</a>
+        <a href="#about" class="nav-link" data-section="about">About</a>
+        <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+        <a href="#music" class="nav-link" data-section="music">Music</a>
+        <div class="blog-section">
+            <button class="blog-toggle" id="blogToggle" aria-expanded="false">
+                <span class="toggle-icon">+</span>
+                <span>Blog</span>
+            </button>
+            <ul class="blog-list" id="blogList">
+                {sortedPosts.map((post) => (
+                    <li>
+                        <a href={`#blog-${post.id}`} class="blog-link" data-post-id={post.id}>
+                            {post.data.title}
+                        </a>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    </nav>
 </aside>
 
 <script>
-	const blogToggle = document.getElementById('blogToggle');
-	const blogList = document.getElementById('blogList');
-	const toggleIcon = blogToggle?.querySelector('.toggle-icon');
+    const blogToggle = document.getElementById('blogToggle');
+    const blogList = document.getElementById('blogList');
+    const toggleIcon = blogToggle?.querySelector('.toggle-icon');
 
-	blogToggle?.addEventListener('click', () => {
-		const isExpanded = blogToggle.getAttribute('aria-expanded') === 'true';
-		blogToggle.setAttribute('aria-expanded', String(!isExpanded));
-		
-		if (blogList) {
-			if (isExpanded) {
-				blogList.classList.remove('visible');
-			} else {
-				blogList.classList.add('visible');
-			}
-		}
-		
-		if (toggleIcon) {
-			toggleIcon.textContent = isExpanded ? '+' : '-';
-		}
-	});
+    blogToggle?.addEventListener('click', () => {
+        const isExpanded = blogToggle.getAttribute('aria-expanded') === 'true';
+        blogToggle.setAttribute('aria-expanded', String(!isExpanded));
+        
+        if (blogList) {
+            if (isExpanded) {
+                blogList.classList.remove('visible');
+            } else {
+                blogList.classList.add('visible');
+            }
+        }
+        
+        if (toggleIcon) {
+            toggleIcon.textContent = isExpanded ? '+' : '-';
+        }
+    });
 
-	const navLinks = document.querySelectorAll('.nav-link, .blog-link');
-	
-	navLinks.forEach(link => {
-		link.addEventListener('click', (e) => {
-			e.preventDefault();
-			const targetId = link.getAttribute('href')?.substring(1);
-			if (targetId) {
-				const targetElement = document.getElementById(targetId);
-				if (targetElement) {
-					if (link.classList.contains('blog-link') && blogList && blogToggle && toggleIcon) {
-						const isExpanded = blogToggle.getAttribute('aria-expanded') === 'true';
-						if (!isExpanded) {
-							blogToggle.setAttribute('aria-expanded', 'true');
-							blogList.classList.add('visible');
-							toggleIcon.textContent = '-';
-						}
-					}
-					targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-				}
-			}
-		});
-	});
+    const navLinks = document.querySelectorAll('.nav-link, .blog-link');
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = link.getAttribute('href')?.substring(1);
+            if (targetId) {
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    if (link.classList.contains('blog-link') && blogList && blogToggle && toggleIcon) {
+                        const isExpanded = blogToggle.getAttribute('aria-expanded') === 'true';
+                        if (!isExpanded) {
+                            blogToggle.setAttribute('aria-expanded', 'true');
+                            blogList.classList.add('visible');
+                            toggleIcon.textContent = '-';
+                        }
+                    }
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        });
+    });
 
-	const observerOptions = {
-		root: null,
-		rootMargin: '-20% 0px -60% 0px',
-		threshold: 0
-	};
+    const observerOptions = {
+        root: null,
+        rootMargin: '-20% 0px -60% 0px',
+        threshold: 0
+    };
 
-	const observer = new IntersectionObserver((entries) => {
-		entries.forEach(entry => {
-			if (entry.isIntersecting) {
-				const sectionId = entry.target.id;
-				
-				if ((sectionId === 'blog' || sectionId.startsWith('blog-')) && blogList && blogToggle && toggleIcon) {
-					const isExpanded = blogToggle.getAttribute('aria-expanded') === 'true';
-					if (!isExpanded) {
-						blogToggle.setAttribute('aria-expanded', 'true');
-						blogList.classList.add('visible');
-						toggleIcon.textContent = '-';
-					}
-				}
-				
-				navLinks.forEach(link => {
-					link.classList.remove('active');
-					const linkTarget = link.getAttribute('href')?.substring(1);
-					if (linkTarget === sectionId) {
-						link.classList.add('active');
-					}
-				});
-			}
-		});
-	}, observerOptions);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionId = entry.target.id;
+                
+                if ((sectionId === 'blog' || sectionId.startsWith('blog-')) && blogList && blogToggle && toggleIcon) {
+                    const isExpanded = blogToggle.getAttribute('aria-expanded') === 'true';
+                    if (!isExpanded) {
+                        blogToggle.setAttribute('aria-expanded', 'true');
+                        blogList.classList.add('visible');
+                        toggleIcon.textContent = '-';
+                    }
+                }
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    const linkTarget = link.getAttribute('href')?.substring(1);
+                    if (linkTarget === sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
 
-	document.addEventListener('DOMContentLoaded', () => {
-		const sections = document.querySelectorAll('#home, #about, #contact, #music, #blog, [id^="blog-"]');
-		sections.forEach(section => {
-			observer.observe(section);
-		});
-	});
+    document.addEventListener('DOMContentLoaded', () => {
+        const sections = document.querySelectorAll('#home, #about, #contact, #music, #blog, [id^="blog-"]');
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    });
 </script>
