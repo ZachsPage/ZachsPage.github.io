@@ -1,88 +1,113 @@
 .section {
-    padding: 3rem 0;
-    border-bottom: 1px solid var(--color-border);
+    padding-block: var(--space-2xl);
+    border-block-end: 1px solid var(--color-border);
 }
 
 .section:first-child {
-    padding-top: 0rem;
+    padding-block-start: 0;
 }
 
 .section h1 {
     font-size: 2.5rem;
-    margin-bottom: 1.5rem;
+    margin-block-end: var(--space-lg);
     color: var(--color-text-primary);
     font-weight: 700;
     text-decoration: underline;
     text-decoration-color: var(--color-border);
     text-decoration-thickness: 2px;
-    text-underline-offset: 0.5rem;
+    text-underline-offset: var(--space-sm);
 }
 
 .section p {
     font-size: 1.1rem;
     line-height: 1.8;
-    margin-bottom: 1rem;
+    margin-block-end: var(--space-md);
     color: var(--color-text-secondary);
 }
 
-.about-content {
-    overflow: hidden;
-}
-
-/* Remove margin from first paragraph in about content to align with profile image */
-.about-content > p:first-of-type {
-    margin-top: 0;
-}
-
+/* About section - text wrapping on all screen sizes */
 .profile-image {
-    width: 200px;
-    height: 200px;
+    inline-size: 150px;
+    block-size: 150px;
     object-fit: cover;
     border-radius: 10px;
-    float: left;
-    margin-right: 2rem;
-    margin-bottom: 1rem;
-    shape-outside: margin-box;
-    vertical-align: top;
+    float: inline-start;
+    margin-inline-end: var(--space-md);
+    margin-block-end: var(--space-md);
 }
 
+/* Desktop - larger image */
+@media (min-width: 769px) {
+    .profile-image {
+        inline-size: 200px;
+        block-size: 200px;
+        margin-inline-end: var(--space-xl);
+    }
+}
+
+/* Interactive elements: links and buttons */
 .about-links,
 .contact-links {
-    margin: 1.5rem 0;
+    margin-block: var(--space-lg);
 }
 
-.social-link {
+.social-link,
+.music-track-button {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
+    gap: var(--space-sm);
+    padding: 0.75rem var(--space-lg);
     background-color: var(--color-bg-menu);
     color: var(--color-text-menu);
     text-decoration: none;
+    border: none;
     border-radius: 8px;
-    transition: background-color 0.2s, transform 0.1s;
+    cursor: pointer;
+    font: inherit;
     font-size: 1rem;
+    transition: background-color var(--transition-base), var(--transition-transform);
+}
+
+.social-link:hover,
+.music-track-button:hover {
+    background-color: color-mix(in srgb, var(--color-bg-menu) 85%, white);
 }
 
 .social-link:hover {
-    background-color: var(--color-bg-menu-hover);
     transform: translateY(-2px);
 }
 
-.social-icon {
-    width: 24px;
-    height: 24px;
+.music-track-button {
+    inline-size: 100%;
+    text-align: start;
+    padding: var(--space-md) var(--space-lg);
+    font-size: 1.1rem;
 }
 
+.music-track-button:hover {
+    transform: translateX(4px);
+}
+
+.music-list-item.active .music-track-button {
+    background-color: color-mix(in srgb, var(--color-bg-menu) 70%, white);
+    font-weight: 600;
+}
+
+.social-icon {
+    inline-size: 24px;
+    block-size: 24px;
+}
+
+/* Music player */
 .music-player-container {
-    margin-top: 1rem;
-    max-width: 600px;
+    margin-block-start: var(--space-md);
+    max-inline-size: 600px;
 }
 
 .music-player-container audio {
-    width: 100%;
+    inline-size: 100%;
     border-radius: 8px;
-    margin-top: 0.5rem;
+    margin-block-start: var(--space-sm);
 }
 
 .music-list {
@@ -91,56 +116,25 @@
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: var(--space-sm);
 }
 
-.music-list-item {
-    margin: 0;
-}
-
-.music-track-button {
-    width: 100%;
-    padding: 1rem 1.5rem;
-    background-color: var(--color-bg-menu);
-    color: var(--color-text-menu);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    text-align: left;
-    font-size: 1.1rem;
-    transition: background-color 0.2s, transform 0.1s;
-    font-family: inherit;
-}
-
-.music-track-button:hover {
-    background-color: var(--color-bg-menu-hover);
-    transform: translateX(4px);
-}
-
-.music-list-item.active .music-track-button {
-    background-color: var(--color-bg-menu-active);
-    font-weight: 600;
-}
-
-.track-name {
-    display: block;
-}
-
+/* Blog posts */
 .blog-posts {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
-    margin-top: 2rem;
+    gap: var(--space-2xl);
+    margin-block-start: var(--space-xl);
 }
 
 .blog-post {
-    padding: 2rem;
+    padding: var(--space-xl);
     background: var(--color-bg-blog-post);
     backdrop-filter: blur(5px);
     border-radius: 12px;
     border: 1px solid var(--color-border);
     box-shadow: 0 2px 8px var(--color-shadow);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: var(--transition-transform), box-shadow var(--transition-base);
 }
 
 .blog-post:hover {
@@ -150,18 +144,18 @@
 
 .blog-post h2 {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
+    margin-block-end: var(--space-sm);
     color: var(--color-text-primary);
 }
 
 .blog-meta {
     font-size: 0.9rem;
     color: var(--color-text-meta);
-    margin-bottom: 1rem;
+    margin-block-end: var(--space-md);
     font-style: italic;
 }
 
 .blog-content {
-    margin-top: 1.5rem;
+    margin-block-start: var(--space-lg);
     line-height: 1.8;
 }
