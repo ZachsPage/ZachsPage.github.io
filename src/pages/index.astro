@@ -100,6 +100,29 @@ const musicFiles = [
         </div>
     </section>
 
+    <section id="blog" class="section">
+        <h1>Blog</h1>
+        <p>This section is for my thoughts - the idea was to use Astro to support writing posts 
+            in Markdown for easy publishing.</p>
+        <div class="blog-posts">
+            {renderedPosts.map((post) => (
+                <article id={`blog-${post.id}`} class="blog-post">
+                    <h2>{post.data.title}</h2>
+                    <p class="blog-meta">
+                        Published: {post.data.pubDate.toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        })}
+                    </p>
+                    <div class="blog-content">
+                        <post.Content />
+                    </div>
+                </article>
+            ))}
+        </div>
+    </section>
+
     <script>
         const musicPlayer = document.getElementById('musicPlayer') as HTMLAudioElement | null;
         const trackButtons = document.querySelectorAll('.music-track-button');
@@ -125,27 +148,4 @@ const musicFiles = [
             trackItems.forEach(item => item.classList.remove('active'));
         });
     </script>
-
-    <section id="blog" class="section">
-        <h1>Blog</h1>
-        <p>This section is for my thoughts - the idea was to use Astro to support writing posts 
-            in Markdown for easy publishing.</p>
-        <div class="blog-posts">
-            {renderedPosts.map((post) => (
-                <article id={`blog-${post.id}`} class="blog-post">
-                    <h2>{post.data.title}</h2>
-                    <p class="blog-meta">
-                        Published: {post.data.pubDate.toLocaleDateString('en-US', { 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
-                        })}
-                    </p>
-                    <div class="blog-content">
-                        <post.Content />
-                    </div>
-                </article>
-            ))}
-        </div>
-    </section>
 </BaseLayout>
