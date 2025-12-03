@@ -28,6 +28,12 @@ const { title = 'ZachsPage' } = Astro.props;
     </body>
 </html>
 <style>
+    :global(*),
+    :global(*::before),
+    :global(*::after) {
+        box-sizing: border-box;
+    }
+
     :global(html) {
         font-family: system-ui, -apple-system, sans-serif;
         scroll-behavior: smooth;
