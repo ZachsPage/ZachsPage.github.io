@@ -55,7 +55,6 @@ const { title = 'ZachsPage' } = Astro.props;
 
     .main-content {
         flex: 1;
-        margin-left: 250px;
         padding: 2rem;
         background: var(--color-bg-content);
         backdrop-filter: blur(10px);
@@ -66,11 +65,16 @@ const { title = 'ZachsPage' } = Astro.props;
 
     @media (max-width: 768px) {
         .main-content {
-            margin-left: 0;
             padding: 1rem;
         }
         .layout {
             flex-direction: column !important;
+        }
+    }
+
+    @media (min-width: 769px) {
+        .main-content {
+            margin-left: var(--sidebar-width-desktop);
         }
     }
     

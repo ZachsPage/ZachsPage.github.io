@@ -77,6 +77,35 @@ const sortedPosts = blogPosts.sort((a: typeof blogPosts[number], b: typeof blogP
         });
     });
 
+
+    // Used to collapse the "blog" sections when scrolled away from - or expand when scrolled into
+    let lastScrollY = window.scrollY;
+    let isScrollingUp = false;
+    let wasInBlogSection = false;
+    function isBlogSectionVisible() {
+        const blogSections = document.querySelectorAll('#blog, [id^="blog-"]');
+        return Array.from(blogSections).some(el => {
+            const rect = el.getBoundingClientRect();
+            return rect.top < window.innerHeight && rect.bottom > 0;
+        });
+    }
+    window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        isScrollingUp = currentScrollY < lastScrollY;
+        lastScrollY = currentScrollY;
+
+        // Check if we should collapse
+        if (wasInBlogSection && !isBlogSectionVisible() && isScrollingUp && blogList && blogToggle && toggleIcon) {
+            const isExpanded = blogToggle.getAttribute('aria-expanded') === 'true';
+            if (isExpanded) {
+                wasInBlogSection = false;
+                blogToggle.setAttribute('aria-expanded', 'false');
+                blogList.classList.remove('visible');
+                toggleIcon.textContent = '+';
+            }
+        }
+    });
+
     const observerOptions = {
         root: null,
         rootMargin: '-20% 0px -60% 0px',
@@ -85,10 +114,12 @@ const sortedPosts = blogPosts.sort((a: typeof blogPosts[number], b: typeof blogP
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
+            const sectionId = entry.target.id;
+            const isBlogSection = sectionId === 'blog' || sectionId.startsWith('blog-');
+
             if (entry.isIntersecting) {
-                const sectionId = entry.target.id;
-                
-                if ((sectionId === 'blog' || sectionId.startsWith('blog-')) && blogList && blogToggle && toggleIcon) {
+                if (isBlogSection && blogList && blogToggle && toggleIcon) {
+                    wasInBlogSection = true;
                     const isExpanded = blogToggle.getAttribute('aria-expanded') === 'true';
                     if (!isExpanded) {
                         blogToggle.setAttribute('aria-expanded', 'true');
@@ -96,7 +127,7 @@ const sortedPosts = blogPosts.sort((a: typeof blogPosts[number], b: typeof blogP
                         toggleIcon.textContent = '-';
                     }
                 }
-                
+
                 navLinks.forEach(link => {
                     link.classList.remove('active');
                     const linkTarget = link.getAttribute('href')?.substring(1);
