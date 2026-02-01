@@ -159,3 +159,22 @@
     margin-block-start: var(--space-lg);
     line-height: 1.8;
 }
+
+/* Prevent nested lists from getting smaller */
+.blog-content ul,
+.blog-content ol {
+    font-size: 1.1rem;
+}
+.blog-content li {
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+}
+
+/* Backtick styling */
+code {
+    background-color: rgb(45, 45, 45);
+    color: rgb(131, 186, 223);
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
